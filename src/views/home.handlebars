@@ -1,0 +1,20 @@
+<div class="titulo">
+  <h1 id="wellcome"></h1>
+</div>
+<div class="message">
+  <label for="">Ingresa un mensaje: </label>
+  <input id="send" type="text" />
+</div>
+
+<div id="contenedor-chat">
+
+</div>
+
+{{!script de sweet alert se instala del lado del cliente pero no como paquete de node en el servidor:}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{!script de la libreria:}}
+<script src="/socket.io/socket.io.js"></script>
+{{!script de js:}}
+<script src="main.js"></script>
+
+{{!los scripts deben colocarse en este orden}}
