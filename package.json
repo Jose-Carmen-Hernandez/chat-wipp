@@ -10,7 +10,7 @@
     "start": "node ./src/app.js"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=14.17.6"
   },
   "keywords": [],
   "author": "",
