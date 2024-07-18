@@ -8,7 +8,7 @@ import { Server } from "socket.io";
 
 const app = express();
 //El siguiente valor debe venir de una variable de entorno .env:
-const PORT = 8080 || 3000;
+const PORT = process.env.PORT || 8080;
 
 //plantillaHB = alias de motor de plantilla handlebars.
 app.engine("handlebars", handlebars.engine()); //motor de plantilla
