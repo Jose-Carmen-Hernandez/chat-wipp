@@ -16,17 +16,17 @@ Swal.fire({
   text: "Para ingresar al chat identificate",
   allowOutsideClick: false,
   inputValidator: (value) => {
-    return !value && "Ingresa un nombre por favor flaco!";
+    return !value && "Ingresa un nombre por favor!";
   },
 }).then((result) => {
   console.log(result.value); //se obtiene el valor del input de sweet alert
   user = result.value;
   title.innerText = `Bienvenido al chat ${user}`;
-  //emitir:
+  //emitir nuevo usuario:
   socket.emit("nuevoUsuario", { user });
 });
 
-//capturar el evento del input:
+//capturar el mensaje del input:
 chatBox.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
     //emitir:
@@ -36,22 +36,43 @@ chatBox.addEventListener("keyup", (event) => {
   }
 });
 
-//escuchar el evento del servidor:
+//escuchar el evento conversacion del servidor:
 socket.on("conversacion", (data) => {
   const contenedorChat = document.querySelector("#contenedor-chat");
   //vaciar contenedor:
   contenedorChat.innerHTML = "";
+
   data.forEach((chat) => {
     //renderizar la conversacion en una div con 2 parrafos:
     const div = document.createElement("div");
     const nombre = document.createElement("p");
     const mensaje = document.createElement("p");
     nombre.classList.add("bold-name");
+    mensaje.classList.add("mensaje");
 
-    nombre.innerText = chat.user + ": ";
+    nombre.innerText = chat.user === user ? "Yo: " : chat.user + ": ";
     mensaje.innerText = chat.mensaje;
     div.appendChild(nombre);
     div.appendChild(mensaje);
     contenedorChat.appendChild(div);
   });
+});
+
+//escuchar el evento conectados para mostrar la lista de usuarios conectados:
+socket.on("conectados", (listaUsuarios) => {
+  const conectadosContainer = document.querySelector("#conectados");
+  conectadosContainer.innerHTML = "";
+
+  listaUsuarios.forEach((usuario) => {
+    //li es cada uno de los usuarios conectados:
+    const li = document.createElement("li");
+    li.innerText = usuario.user === user ? user + " - (Yo)" : usuario.user;
+    conectadosContainer.appendChild(li);
+  });
+});
+
+//mostrar el numero de usuarios conectados:
+socket.on("numeroUsuarios", (numero) => {
+  const numeroUsuariosContainer = document.querySelector("#numero-usuarios");
+  numeroUsuariosContainer.innerText = `Total: ${numero}`;
 });

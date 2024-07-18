@@ -6,8 +6,13 @@
   <input id="send" type="text" />
 </div>
 
-<div id="contenedor-chat">
+<div id="contenedor-chat"></div>
 
+<div>
+  <h2 id="conectados-titulo">Usuarios conectados: </h2>
+  {{!lista de usuarios conectados:}}
+  <ul id="conectados"></ul>
+  <p id="numero-usuarios"></p>
 </div>
 
 {{!script de sweet alert se instala del lado del cliente pero no como paquete de node en el servidor:}}
